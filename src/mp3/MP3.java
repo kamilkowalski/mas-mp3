@@ -5,6 +5,7 @@ import dynamic.Player;
 import multi.HybridVehicle;
 import multi.LandVehicle;
 import multi.WaterVehicle;
+import multi2.*;
 import overlapping.Building;
 import overlapping.CoalHeatedBuilding;
 import overlapping.Company;
@@ -13,7 +14,9 @@ import polymorphism.RuralNeighbourhood;
 import polymorphism.UrbanNeighbourhood;
 
 import java.lang.management.PlatformLoggingMXBean;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class MP3 {
@@ -67,7 +70,7 @@ public class MP3 {
 
         try {
             Player pl = new Player("Kamil", 100, 500, 40, 6);
-            Monster ms = new Monster("Slardar", 20, 350, 120, 50);
+            Monster ms = new Monster("Troll", 20, 350, 120, 50);
 
             Player pls = new Player(ms, 10);
 
@@ -76,6 +79,37 @@ public class MP3 {
             System.out.println(pls);
         } catch(Exception e){
             System.out.println(e);
+        }
+
+        // Wielodziedziczenie
+
+        List<Sprawa> sprawy = new ArrayList<>();
+        sprawy.add(new Sprawa("Zepsuty monitor"));
+        sprawy.add(new Sprawa("Wymiana karty graficznej"));
+
+        Set<Produkt> produkty = new HashSet<>();
+        produkty.add(new Produkt("Monitor LCD Iyama"));
+        produkty.add(new Produkt("Klawiatura Logitech"));
+        produkty.add(new Produkt("Intel Core i7"));
+
+        Serwis serwis = new Serwis("ul. Niepodległości 15", sprawy);
+        Sklep sklep = new Sklep("Elektro Śmieci", produkty);
+        SklepSerwis sklepSerwis = new SklepSerwis("Super Elektro Śmieci", "ul. Płocka 15", sprawy, produkty);
+
+        System.out.println("-------------------");
+        System.out.println(serwis);
+        System.out.println("-------------------");
+        System.out.println(sklep);
+        System.out.println("-------------------");
+        System.out.println(sklepSerwis);
+        System.out.println("-------------------");
+
+        Produkt prod = sklepSerwis.znajdzProdukt("Monitor LCD Iyama");
+
+        if (prod != null) {
+            System.out.println("Znaleziono produkt: " + prod.toString());
+        } else {
+            System.out.println("Nie znaleziono produktu!");
         }
     }
 }
